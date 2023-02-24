@@ -1,9 +1,10 @@
 /** @file Wrappers around generated API */
 
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { paraTimesConfig } from '../config'
 import * as generated from './generated/api'
 import BigNumber from 'bignumber.js'
+import { UseQueryOptions } from '@tanstack/react-query'
 
 export * from './generated/api'
 export type { RuntimeEvmBalance as Token } from './generated/api'
@@ -79,5 +80,37 @@ export const useGetConsensusAccountsAddress: typeof generated.useGetConsensusAcc
       ],
     },
   })
+  return result
+}
+
+// TODO: replace with an appropriate API
+export function useGetEmeraldBlockByHeight(
+  blockHeight: number,
+  options?: { query?: UseQueryOptions<any, any> },
+) {
+  const result = generated.useGetEmeraldBlocks<AxiosResponse<generated.RuntimeBlock, any>>(
+    { to: blockHeight, limit: 1 },
+    {
+      ...options,
+      axios: {
+        transformResponse: [
+          ...arrayify(axios.defaults.transformResponse),
+          function (data: generated.RuntimeBlockList) {
+            const block = data.blocks[0]
+            if (!block || block.round !== blockHeight) {
+              throw new axios.AxiosError('not found', 'ERR_BAD_REQUEST', this, null, {
+                status: 404,
+                statusText: 'not found',
+                config: this,
+                data: 'not found',
+                headers: {},
+              })
+            }
+            return block
+          },
+        ],
+      },
+    },
+  )
   return result
 }

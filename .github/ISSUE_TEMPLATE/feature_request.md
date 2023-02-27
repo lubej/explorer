@@ -15,14 +15,14 @@ Provide here a clear description of the problem or missing capability...
 
 #### SOLUTION
 <!-- Proposed solution -->
-```provide the description below
+```
 
 ```
 
 
 #### ALTERNATIVE SOLUTIONS
 <!-- Any alternative solutions that come to mind or workarounds? -->
-```provide the description below
+```
 
 ```
 

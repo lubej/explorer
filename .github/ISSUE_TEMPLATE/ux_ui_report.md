@@ -25,14 +25,14 @@ Is this issue blocking your progress?
 
 #### PRODUCT ENVIRONMENT
 Provide all relevant information below as to where the issue occurs within the product
-```paste below
+```
 
 ```
 
 
 #### DESCRIPTION OF ISSUE
 Describe the issue itself. Be as detailed as possible, preferably add a screenshot or recording to explain the issue further
-```paste below
+```
 
 ```
 
@@ -46,13 +46,13 @@ Share whether this occurs on desktop, mobile or both
 
 #### STEPS TO REPRODUCE
 Describe exactly how to reproduce the issue
-```paste below
+```
 
 ```
 
 
 #### ALTERNATIVES AND SUGGESTIONS
 Share any suggestions on how to solve the issue -_optional_-
-```paste below
+```
 
 ```

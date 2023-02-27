@@ -15,20 +15,20 @@ Provide here a clear description of the problem...
 
 #### STEPS TO REPRODUCE
 <!-- Describe minimal reproduction of the issue in a clear step-by-step basis -->
-```paste below
+```
 
 ```
 
 
 #### EXCEPTION OR ERROR
-<!-- If the issue is accompanied by an exception or an error, paste it bellow: -->
-```paste below
+<!-- If the issue is accompanied by an exception or an error, paste it below: -->
+```
 
 ```
 
 
 #### SCREENSHOT
-<!-- A picture is worth a thousand words, paste the screenshot bellow -->
-```paste below
+<!-- A picture is worth a thousand words, paste the screenshot below -->
+```
 
 ```

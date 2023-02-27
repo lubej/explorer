@@ -1,7 +1,11 @@
 import { FC } from 'react'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { RuntimeTransaction, useGetEmeraldTransactionsTxHash } from '../../../oasis-indexer/api'
+import {
+  RuntimeTransaction,
+  TransactionError,
+  useGetEmeraldTransactionsTxHash,
+} from '../../../oasis-indexer/api'
 import { StyledDescriptionList } from '../../components/StyledDescriptionList'
 import { PageLayout } from '../../components/PageLayout'
 import { SubPageCard } from '../../components/SubPageCard'
@@ -20,6 +24,7 @@ import { trimLongString } from '../../utils/trimLongString'
 import { CopyToClipboard } from '../../components/CopyToClipboard'
 import { AppErrors } from '../../../types/errors'
 import { TextSkeleton } from '../../components/Skeleton'
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { COLORS } from '../../../styles/theme/colors'
 
@@ -55,6 +60,19 @@ const StyledAlert = styled(Alert)(() => ({
   marginBottom: '1em',
 }))
 
+const ErrorBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '28px',
+  fontSize: '15px',
+  backgroundColor: COLORS.grayLight,
+  color: COLORS.errorIndicatorBackground,
+  borderRadius: 10,
+  paddingLeft: 12,
+  paddingRight: 12,
+}))
+
 export const TransactionDetailPage: FC = () => {
   const { t } = useTranslation()
   const hash = useParams().hash!
@@ -71,6 +89,15 @@ export const TransactionDetailPage: FC = () => {
   if (!transaction && !isLoading) {
     throw AppErrors.NotFoundTxHash
   }
+
+  const error: TransactionError | undefined = transaction?.success
+    ? undefined
+    : {
+        // TODO: this is placeholder until we can get the data from the API
+        code: 42,
+        module: 'evm',
+        message: 'reverted: missing error message',
+      }
 
   return (
     <PageLayout>
@@ -98,8 +125,13 @@ export const TransactionDetailPage: FC = () => {
             </dd>
 
             <dt>{t('common.status')}</dt>
-            <dd>
+            <dd style={{ flexWrap: 'wrap', gap: '10px' }}>
               <TransactionStatusIcon success={transaction.success} withText={true} />
+              {error && (
+                <ErrorBox>
+                  {error.message} (error code {error.code})
+                </ErrorBox>
+              )}
             </dd>
 
             <dt>{t('common.block')}</dt>

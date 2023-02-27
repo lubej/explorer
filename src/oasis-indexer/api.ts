@@ -81,3 +81,9 @@ export const useGetConsensusAccountsAddress: typeof generated.useGetConsensusAcc
   })
   return result
 }
+
+export type TransactionError = {
+  code: number
+  module: string
+  message: string
+}

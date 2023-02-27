@@ -5,7 +5,7 @@
 #### SUMMARY
 
 name: "title of issue"\
-about: "short description of issue"'\
+about: "short description of issue"\
 labels: 'ux/ui design'\
 assignees: '@donouwens'
 

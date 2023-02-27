@@ -29,11 +29,24 @@ const TransactionsChartCardCmp: FC<TransactionsChartCardProps> = ({ chartDuratio
 
   const totalTransactions = data?.data.buckets.reduce((acc, curr) => acc + curr.tx_volume, 0) ?? 0
 
+  const getPercentageDiff = (): number | null => {
+    if (!lineChartData) {
+      return null
+    }
+
+    const [firstBucket, ...restBuckets] = lineChartData
+    const averageRestBuckets =
+      restBuckets.reduce((acc, curr) => acc + curr.volume_per_second, 0) / restBuckets.length
+
+    return ((averageRestBuckets - firstBucket.volume_per_second) / averageRestBuckets) * -100
+  }
+
+  const percentage = getPercentageDiff()
+
   return (
     <SnapshotCard
       title={t('common.transactions')}
-      // TODO: show real percentage value
-      badge={<PercentageGain percentage={23} />}
+      badge={percentage !== null && <PercentageGain percentage={percentage} />}
       label={totalTransactions.toString()}
     >
       {lineChartData && (

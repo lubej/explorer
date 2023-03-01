@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHref, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
@@ -18,6 +18,7 @@ import { trimLongString } from '../../utils/trimLongString'
 import { COLORS } from '../../../styles/theme/colors'
 import { gasLimit } from '../../../config'
 import { transactionsContainerId } from './TransactionsCard'
+import { useLayerHref } from '../../hooks/useLayerHref'
 
 // TODO: replace with an appropriate API
 function useGetEmeraldBlockByHeight(blockHeight: number) {
@@ -53,7 +54,7 @@ export const BlockDetailView: FC<{
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const formattedTime = useFormattedTimestampString(block?.timestamp)
-  const transactionsAnchor = `${useHref('')}#${transactionsContainerId}`
+  const transactionsAnchor = `${useLayerHref('')}#${transactionsContainerId}`
 
   return (
     <SubPageCard featured title={t('common.block')}>

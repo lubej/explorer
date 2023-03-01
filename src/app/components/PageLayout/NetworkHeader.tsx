@@ -13,6 +13,7 @@ import { COLORS } from '../../../styles/theme/colors'
 import { Layer } from '../../../config'
 import { Circle } from '../Circle'
 import { RouteUtils } from '../../utils/route-utils'
+import { useLayerHref } from '../../hooks/useLayerHref'
 
 const getHeader = (t: TFunction, layer: Layer) => {
   switch (layer) {
@@ -59,7 +60,7 @@ export const NetworkHeader: FC = () => {
         >
           <Link
             component={RouterLink}
-            to={RouteUtils.getDashboardRoute(Layer.Emerald)}
+            to={useLayerHref(RouteUtils.getDashboardRoute())}
             sx={{ textDecoration: 'none' }}
           >
             <Typography

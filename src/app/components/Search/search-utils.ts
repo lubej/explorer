@@ -1,4 +1,3 @@
-import { Layer } from '../../../config'
 import {
   isValidBlockHeight,
   isValidBlockHash,
@@ -7,20 +6,21 @@ import {
   isValidEthAddress,
 } from '../../utils/helpers'
 import { RouteUtils } from '../../utils/route-utils'
+import { Layer } from '../../../config'
 
 export abstract class SearchUtils {
   /**
    * Receives a search term and returns a matching path
    */
-  static getNavigationPath(searchTerm: string): string | undefined {
+  static getNavigationPath(searchTerm: string, layer: Layer = Layer.Emerald): string | undefined {
     const blockHeight = validateAndNormalize.blockHeight(searchTerm)
     const txHash = validateAndNormalize.txHash(searchTerm)
     const evmAccount = validateAndNormalize.evmAccount(searchTerm)
     const consensusAccount = validateAndNormalize.consensusAccount(searchTerm)
-    if (blockHeight) return RouteUtils.getBlockRoute(parseInt(blockHeight, 10), Layer.Emerald)
-    if (txHash) return RouteUtils.getTransactionRoute(txHash, Layer.Emerald)
-    if (evmAccount) return RouteUtils.getAccountRoute(evmAccount, Layer.Emerald)
-    if (consensusAccount) return RouteUtils.getAccountRoute(consensusAccount, Layer.Emerald)
+    if (blockHeight) return RouteUtils.getBlockRoute(parseInt(blockHeight, 10), layer)
+    if (txHash) return RouteUtils.getTransactionRoute(txHash, layer)
+    if (evmAccount) return RouteUtils.getAccountRoute(evmAccount, layer)
+    if (consensusAccount) return RouteUtils.getAccountRoute(consensusAccount, layer)
     // TODO: block hash, contract, validator, event
     return undefined
   }

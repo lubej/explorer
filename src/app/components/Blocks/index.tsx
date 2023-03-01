@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
@@ -8,7 +8,7 @@ import { VerticalProgressBar } from '../../components/ProgressBar'
 import { Table, TableCellAlign, TableColProps } from '../../components/Table'
 import { TrimLinkLabel } from '../../components/TrimLinkLabel'
 import { RouteUtils } from '../../utils/route-utils'
-import { Layer, gasLimit } from '../../../config'
+import { gasLimit } from '../../../config'
 import { TablePaginationProps } from '../Table/TablePagination'
 
 export type TableRuntimeBlock = RuntimeBlock & {
@@ -30,6 +30,7 @@ type BlocksProps = {
 export const Blocks = (props: BlocksProps) => {
   const { isLoading, blocks, verbose, pagination, limit } = props
   const { t } = useTranslation()
+  const { layer } = useParams()
 
   const tableColumns: TableColProps[] = [
     { content: t('common.fill') },
@@ -53,7 +54,7 @@ export const Blocks = (props: BlocksProps) => {
         align: TableCellAlign.Right,
         content: (
           <Typography variant="mono">
-            <Link component={RouterLink} to={RouteUtils.getBlockRoute(block.round, Layer.Emerald)}>
+            <Link component={RouterLink} to={RouteUtils.getBlockRoute(block.round, layer)}>
               {block.round.toLocaleString()}
             </Link>
           </Typography>
@@ -77,10 +78,7 @@ export const Blocks = (props: BlocksProps) => {
             {
               content: (
                 <Typography variant="mono">
-                  <TrimLinkLabel
-                    label={block.hash}
-                    to={RouteUtils.getBlockRoute(block.round, Layer.Emerald)}
-                  />
+                  <TrimLinkLabel label={block.hash} to={RouteUtils.getBlockRoute(block.round, layer)} />
                 </Typography>
               ),
               key: 'hash',

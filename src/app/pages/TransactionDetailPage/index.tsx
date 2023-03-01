@@ -7,7 +7,6 @@ import { PageLayout } from '../../components/PageLayout'
 import { SubPageCard } from '../../components/SubPageCard'
 import { TransactionStatusIcon } from '../../components/TransactionStatusIcon'
 import { RuntimeTransactionLabel } from '../../components/RuntimeTransactionLabel'
-import { Layer } from '../../../config'
 import { RouteUtils } from '../../utils/route-utils'
 import Link from '@mui/material/Link'
 import { useFormattedTimestampString } from '../../hooks/useFormattedTimestamp'
@@ -57,11 +56,11 @@ const StyledAlert = styled(Alert)(() => ({
 
 export const TransactionDetailPage: FC = () => {
   const { t } = useTranslation()
-  const hash = useParams().hash!
+  const { hash, layer } = useParams()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const { isLoading, data } = useGetEmeraldTransactionsTxHash(hash)
+  const { isLoading, data } = useGetEmeraldTransactionsTxHash(hash!)
 
   const transactions = data?.data ? [data.data] : [] // TODO: simplify this when the API is updated to return a list
   const { wantedTransaction: transaction, warningMultipleTransactionsSameHash } =
@@ -105,7 +104,7 @@ export const TransactionDetailPage: FC = () => {
             <dt>{t('common.block')}</dt>
             <dd>
               <Typography variant="mono" component="span" sx={{ color: COLORS.brandDark, fontWeight: 700 }}>
-                <Link component={RouterLink} to={RouteUtils.getBlockRoute(transaction.round, Layer.Emerald)}>
+                <Link component={RouterLink} to={RouteUtils.getBlockRoute(transaction.round, layer)}>
                   {transaction.round.toLocaleString()}
                 </Link>
               </Typography>
@@ -122,7 +121,7 @@ export const TransactionDetailPage: FC = () => {
             <dt>{t('common.from')}</dt>
             <dd>
               <Typography variant="mono" component="span" sx={{ color: COLORS.brandDark, fontWeight: 700 }}>
-                <AccountLink address={transaction.sender_0} paratime={Layer.Emerald} />
+                <AccountLink address={transaction.sender_0} />
               </Typography>
               <CopyToClipboard value={transaction.sender_0} label={' '} />
             </dd>
@@ -136,7 +135,7 @@ export const TransactionDetailPage: FC = () => {
                     component="span"
                     sx={{ color: COLORS.brandDark, fontWeight: 700 }}
                   >
-                    <AccountLink address={transaction.to} paratime={Layer.Emerald} />
+                    <AccountLink address={transaction.to} />
                   </Typography>
                   <CopyToClipboard value={transaction.to} label={' '} />
                 </dd>

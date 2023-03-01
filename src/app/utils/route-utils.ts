@@ -5,34 +5,34 @@ import { isValidBlockHeight, isValidOasisAddress, isValidEthAddress } from './he
 import { AppError, AppErrors } from '../../types/errors'
 
 export abstract class RouteUtils {
-  private static ENABLED_PARA_TIMES: Layer[] = [Layer.Emerald, Layer.Sapphire, Layer.Cipher]
+  private static ENABLED_LAYERS: Layer[] = [Layer.Emerald]
 
-  static getDashboardRoute = (paraTime: Layer) => {
-    return `/${paraTime}`
+  static getDashboardRoute = () => {
+    return '/'
   }
 
-  static getLatestTransactionsRoute = (paraTime: Layer) => {
-    return `/${paraTime}/transactions`
+  static getLatestTransactionsRoute = () => {
+    return 'transactions'
   }
 
-  static getLatestBlocksRoute = (paraTime: Layer) => {
-    return `/${paraTime}/blocks`
+  static getLatestBlocksRoute = () => {
+    return 'blocks'
   }
 
-  static getBlockRoute = (blockHeight: number, paraTime: Layer | null = null) => {
-    return `${paraTime ? `/${paraTime}` : ''}/blocks/${encodeURIComponent(blockHeight)}`
+  static getBlockRoute = (blockHeight: number, paraTime: Layer | string | null = null) => {
+    return `${paraTime ? `/${paraTime}/` : ''}blocks/${encodeURIComponent(blockHeight)}`
   }
 
-  static getTransactionRoute = (txHash: string, paraTime: Layer | null = null) => {
-    return `${paraTime ? `/${paraTime}` : ''}/transactions/${encodeURIComponent(txHash)}`
+  static getTransactionRoute = (txHash: string, paraTime: Layer | string | null = null) => {
+    return `${paraTime ? `/${paraTime}/` : ''}transactions/${encodeURIComponent(txHash)}`
   }
 
-  static getAccountRoute = (sender: string, paraTime: Layer | null = null) => {
-    return `${paraTime ? `/${paraTime}` : ''}/account/${encodeURIComponent(sender)}`
+  static getAccountRoute = (sender: string, paraTime: Layer | string | null = null) => {
+    return `${paraTime ? `/${paraTime}/` : ''}account/${encodeURIComponent(sender)}`
   }
 
-  static getEnabledParaTimes(): Layer[] {
-    return RouteUtils.ENABLED_PARA_TIMES
+  static getEnabledLayers(): Layer[] {
+    return RouteUtils.ENABLED_LAYERS
   }
 }
 
@@ -81,7 +81,7 @@ export const layerLoader = async (args: LoaderFunctionArgs) => {
     params: { layer },
   } = args
 
-  if (!layer || !RouteUtils.getEnabledParaTimes().includes(layer as Layer)) {
+  if (!layer || !RouteUtils.getEnabledLayers().includes(layer as Layer)) {
     throw new AppError(AppErrors.InvalidUrl)
   }
 

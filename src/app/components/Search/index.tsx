@@ -1,5 +1,5 @@
 import { FC, FormEvent, memo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import { styled, useTheme } from '@mui/material/styles'
@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import IconButton from '@mui/material/IconButton'
 import { SearchSuggestions } from './SearchSuggestions'
+import { Layer } from '../../../config'
 
 export type SearchVariant = 'button' | 'icon' | 'expandable'
 
@@ -92,6 +93,7 @@ const SearchCmp: FC<SearchProps> = ({ variant, disabled, onFocusChange: onFocusC
   const searchPlaceholderTranslated = isMobile ? t('search.mobilePlaceholder') : t('search.placeholder')
   const [value, setValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
+  const { layer } = useParams()
 
   const onFocusChange = (value: boolean) => {
     setIsFocused(value)
@@ -100,7 +102,7 @@ const SearchCmp: FC<SearchProps> = ({ variant, disabled, onFocusChange: onFocusC
 
   const onFormSubmit = (e?: FormEvent) => {
     e?.preventDefault()
-    const navigateTo = SearchUtils.getNavigationPath(value)
+    const navigateTo = SearchUtils.getNavigationPath(value, layer as Layer)
     if (navigateTo) {
       navigate(navigateTo)
     }

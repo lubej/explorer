@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'react-i18next'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useParams } from 'react-router-dom'
 import formatDistanceStrict from 'date-fns/formatDistanceStrict'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
@@ -15,7 +15,6 @@ import { RoundedRoseBalance } from '../../components/RoundedBalance'
 import { RuntimeTransaction } from '../../../oasis-indexer/api'
 import { COLORS } from '../../../styles/theme/colors'
 import { RouteUtils } from '../../utils/route-utils'
-import { Layer } from '../../../config'
 import { TablePaginationProps } from '../Table/TablePagination'
 
 const StyledCircle = styled(Box)(({ theme }) => ({
@@ -56,6 +55,7 @@ export const Transactions: FC<TransactionProps> = ({
   verbose = true,
 }) => {
   const { t } = useTranslation()
+  const { layer } = useParams()
   const tableColumns = [
     { content: t('common.status') },
     { content: t('common.hash') },
@@ -79,7 +79,7 @@ export const Transactions: FC<TransactionProps> = ({
           <Typography variant="mono">
             <TrimLinkLabel
               label={transaction.hash}
-              to={RouteUtils.getTransactionRoute(transaction.hash, Layer.Emerald)}
+              to={RouteUtils.getTransactionRoute(transaction.hash, layer)}
             />
           </Typography>
         ),
@@ -90,10 +90,7 @@ export const Transactions: FC<TransactionProps> = ({
             {
               content: (
                 <Typography variant="mono">
-                  <Link
-                    component={RouterLink}
-                    to={RouteUtils.getBlockRoute(transaction.round, Layer.Emerald)}
-                  >
+                  <Link component={RouterLink} to={RouteUtils.getBlockRoute(transaction.round, layer)}>
                     {transaction.round.toLocaleString()}
                   </Link>
                 </Typography>
@@ -127,7 +124,7 @@ export const Transactions: FC<TransactionProps> = ({
             <Typography variant="mono">
               <TrimLinkLabel
                 label={transaction.sender_0}
-                to={RouteUtils.getAccountRoute(transaction.sender_0, Layer.Emerald)}
+                to={RouteUtils.getAccountRoute(transaction.sender_0, layer)}
               />
             </Typography>
             {transaction.to && (
@@ -143,10 +140,7 @@ export const Transactions: FC<TransactionProps> = ({
       {
         content: (
           <Typography variant="mono">
-            <TrimLinkLabel
-              label={transaction.to!}
-              to={RouteUtils.getAccountRoute(transaction.to!, Layer.Emerald)}
-            />
+            <TrimLinkLabel label={transaction.to!} to={RouteUtils.getAccountRoute(transaction.to!, layer)} />
           </Typography>
         ),
         key: 'to',

@@ -21,6 +21,7 @@ import { AppErrors } from '../../../types/errors'
 import { TextSkeleton } from '../../components/Skeleton'
 import Typography from '@mui/material/Typography'
 import { COLORS } from '../../../styles/theme/colors'
+import { useLayer } from '../../hooks/useLayer'
 
 type TransactionSelectionResult = {
   wantedTransaction?: RuntimeTransaction
@@ -56,7 +57,8 @@ const StyledAlert = styled(Alert)(() => ({
 
 export const TransactionDetailPage: FC = () => {
   const { t } = useTranslation()
-  const { hash, layer } = useParams()
+  const { hash } = useParams()
+  const layer = useLayer()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 

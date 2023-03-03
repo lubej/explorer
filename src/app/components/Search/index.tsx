@@ -1,5 +1,5 @@
 import { FC, FormEvent, memo, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import { styled, useTheme } from '@mui/material/styles'
@@ -13,6 +13,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import IconButton from '@mui/material/IconButton'
 import { SearchSuggestions } from './SearchSuggestions'
 import { Layer } from '../../../config'
+import { useLayer } from '../../hooks/useLayer'
 
 export type SearchVariant = 'button' | 'icon' | 'expandable'
 
@@ -93,7 +94,7 @@ const SearchCmp: FC<SearchProps> = ({ variant, disabled, onFocusChange: onFocusC
   const searchPlaceholderTranslated = isMobile ? t('search.mobilePlaceholder') : t('search.placeholder')
   const [value, setValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
-  const { layer } = useParams()
+  const layer = useLayer()
 
   const onFocusChange = (value: boolean) => {
     setIsFocused(value)

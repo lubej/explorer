@@ -7,28 +7,28 @@ import { AppError, AppErrors } from '../../types/errors'
 export abstract class RouteUtils {
   private static ENABLED_LAYERS: Layer[] = [Layer.Emerald]
 
-  static getDashboardRoute = () => {
-    return '/'
+  static getDashboardRoute = (layer: Layer | null = null) => {
+    return `${layer ? `/${layer}` : ''}/`
   }
 
-  static getLatestTransactionsRoute = () => {
-    return 'transactions'
+  static getLatestTransactionsRoute = (layer: Layer | null = null) => {
+    return `${layer ? `/${layer}/` : ''}transactions`
   }
 
-  static getLatestBlocksRoute = () => {
-    return 'blocks'
+  static getLatestBlocksRoute = (layer: Layer | null = null) => {
+    return `${layer ? `/${layer}/` : ''}blocks`
   }
 
-  static getBlockRoute = (blockHeight: number, paraTime: Layer | string | null = null) => {
-    return `${paraTime ? `/${paraTime}/` : ''}blocks/${encodeURIComponent(blockHeight)}`
+  static getBlockRoute = (blockHeight: number, layer: Layer | null = null) => {
+    return `${layer ? `/${layer}/` : ''}blocks/${encodeURIComponent(blockHeight)}`
   }
 
-  static getTransactionRoute = (txHash: string, paraTime: Layer | string | null = null) => {
-    return `${paraTime ? `/${paraTime}/` : ''}transactions/${encodeURIComponent(txHash)}`
+  static getTransactionRoute = (txHash: string, layer: Layer | null = null) => {
+    return `${layer ? `/${layer}/` : ''}transactions/${encodeURIComponent(txHash)}`
   }
 
-  static getAccountRoute = (sender: string, paraTime: Layer | string | null = null) => {
-    return `${paraTime ? `/${paraTime}/` : ''}account/${encodeURIComponent(sender)}`
+  static getAccountRoute = (sender: string, layer: Layer | null = null) => {
+    return `${layer ? `/${layer}/` : ''}account/${encodeURIComponent(sender)}`
   }
 
   static getEnabledLayers(): Layer[] {

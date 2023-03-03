@@ -1,4 +1,4 @@
-import { Link as RouterLink, useParams } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
@@ -10,6 +10,7 @@ import { TrimLinkLabel } from '../../components/TrimLinkLabel'
 import { RouteUtils } from '../../utils/route-utils'
 import { gasLimit } from '../../../config'
 import { TablePaginationProps } from '../Table/TablePagination'
+import { useLayer } from '../../hooks/useLayer'
 
 export type TableRuntimeBlock = RuntimeBlock & {
   markAsNew?: boolean
@@ -30,7 +31,7 @@ type BlocksProps = {
 export const Blocks = (props: BlocksProps) => {
   const { isLoading, blocks, verbose, pagination, limit } = props
   const { t } = useTranslation()
-  const { layer } = useParams()
+  const layer = useLayer()
 
   const tableColumns: TableColProps[] = [
     { content: t('common.fill') },

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'react-i18next'
-import { Link as RouterLink, useParams } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import formatDistanceStrict from 'date-fns/formatDistanceStrict'
 import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
@@ -16,6 +16,7 @@ import { RuntimeTransaction } from '../../../oasis-indexer/api'
 import { COLORS } from '../../../styles/theme/colors'
 import { RouteUtils } from '../../utils/route-utils'
 import { TablePaginationProps } from '../Table/TablePagination'
+import { useLayer } from '../../hooks/useLayer'
 
 const StyledCircle = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -55,7 +56,7 @@ export const Transactions: FC<TransactionProps> = ({
   verbose = true,
 }) => {
   const { t } = useTranslation()
-  const { layer } = useParams()
+  const layer = useLayer()
   const tableColumns = [
     { content: t('common.status') },
     { content: t('common.hash') },

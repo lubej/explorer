@@ -1,34 +1,38 @@
-<!--- *This report is only for reporting bugs* -->
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
 
 ---
-#### BUG REPORT
 
-name: "title of issue"\
-about: "short description of the issue"
+**Describe the bug**
+A clear and concise description of what the bug is.
 
----
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-#### DESCRIPTION
+**Expected behavior**
+A clear and concise description of what you expected to happen.
 
-Provide here a clear description of the problem...
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
 
+**Desktop (please complete the following information):**
+ - OS: [e.g. iOS]
+ - Browser [e.g. chrome, safari]
+ - Version [e.g. 22]
 
-#### STEPS TO REPRODUCE
-<!-- Describe minimal reproduction of the issue in a clear step-by-step basis -->
-```
+**Smartphone (please complete the following information):**
+ - Device: [e.g. iPhone6]
+ - OS: [e.g. iOS8.1]
+ - Browser [e.g. stock browser, safari]
+ - Version [e.g. 22]
 
-```
-
-
-#### EXCEPTION OR ERROR
-<!-- If the issue is accompanied by an exception or an error, paste it below: -->
-```
-
-```
-
-
-#### SCREENSHOT
-<!-- A picture is worth a thousand words, paste the screenshot below -->
-```
-
-```
+**Additional context**
+Add any other context about the problem here.
